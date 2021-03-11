@@ -38,6 +38,10 @@ kotlin {
 
                 // DI
                 implementation("org.kodein.di:kodein-di:7.1.0")
+
+                implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.31")
+
+
             }
         }
         val commonTest by getting {

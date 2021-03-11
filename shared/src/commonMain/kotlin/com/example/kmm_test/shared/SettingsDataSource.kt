@@ -1,4 +1,7 @@
 package com.example.kmm_test.shared
 
-class SettingsDataSource {
+
+expect class SettingsDataSource() {
+    fun getTestSettings() : String
+    fun setTestSettings(value: String)
 }
