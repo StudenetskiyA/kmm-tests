@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         val kotlinVersion = "1.4.20"
-        classpath("com.android.tools.build:gradle:4.0.1")
+        classpath("com.android.tools.build:gradle:4.1.2")
         classpath(kotlin("gradle-plugin", version = kotlinVersion))
         classpath(kotlin("serialization", version = kotlinVersion))
     }

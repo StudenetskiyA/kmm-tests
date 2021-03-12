@@ -11,14 +11,15 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.0")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
+    implementation("com.google.android.exoplayer:exoplayer:2.13.2")
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
     defaultConfig {
         applicationId = "com.example.kmm_test.androidApp"
-        minSdkVersion(24)
-        targetSdkVersion(29)
+        minSdkVersion(26)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
     }
@@ -26,5 +27,12 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    compileOptions {
+        sourceCompatibility  = JavaVersion.VERSION_1_8
+        targetCompatibility  = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }

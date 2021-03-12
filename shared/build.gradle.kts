@@ -52,7 +52,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.google.android.material:material:1.2.1")
+                implementation("com.google.android.exoplayer:exoplayer:2.13.2")
+                implementation("com.google.android.material:material:1.3.0")
                 api("io.ktor:ktor-client-okhttp:${ktorVersion}")
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}")
                 api("com.squareup.sqldelight:android-driver:${sqlDelightVersion}")
@@ -75,11 +76,11 @@ kotlin {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(24)
-        targetSdkVersion(29)
+        minSdkVersion(26)
+        targetSdkVersion(30)
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
