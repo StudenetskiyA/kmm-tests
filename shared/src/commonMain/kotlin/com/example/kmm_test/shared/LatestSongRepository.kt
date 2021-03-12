@@ -28,12 +28,12 @@ class LatestSongRepository(private val logger: ZLog) : ApiRepository(), ILatestS
 
     override suspend fun getLatestSongsListOrException(): LatestSongResult =
         withContext(Dispatchers.Default) {
-        //with(CoroutineScope(coroutineContext)) {
             val response: LatestSongResponse = try {
                 getAnythingOrException(latestSongsURL)
             } catch (e: Exception) {
                 // Можно обработать каждое исключение отдельно
-                // Не используй EngineSDK.di внутри коррутин - на Swift есть проблема с этим
+                // Не используй EngineSDK.di внутри коррутин - EngineSDK.di ThreadLocal
+                // Хотя на Андроид работает))
                 when (e) {
                     is ClientRequestException -> {
                         logger.d(

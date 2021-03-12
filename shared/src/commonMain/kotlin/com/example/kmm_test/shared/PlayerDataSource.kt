@@ -1,4 +1,5 @@
 package com.example.kmm_test.shared
 
-class PlayerDataSource {
+expect class PlayerDataSource {
+    fun playURL(url: String)
 }

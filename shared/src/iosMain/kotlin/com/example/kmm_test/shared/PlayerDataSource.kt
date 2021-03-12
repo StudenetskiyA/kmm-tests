@@ -1,4 +1,6 @@
 package com.example.kmm_test.shared
 
-class PlayerDataSource {
+actual class PlayerDataSource {
+    actual fun playURL(url: String) {
+    }
 }
