@@ -3,7 +3,7 @@
     package="com.example.kmm_test.shared" >
 
     <uses-sdk
-        android:minSdkVersion="24"
-        android:targetSdkVersion="29" />
+        android:minSdkVersion="26"
+        android:targetSdkVersion="30" />
 
 </manifest>

@@ -5,10 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="24"
-        android:targetSdkVersion="29" />
+        android:minSdkVersion="26"
+        android:targetSdkVersion="30" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="false"
@@ -17,7 +18,8 @@
         android:extractNativeLibs="false"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
         <activity android:name="com.example.kmm_test.androidApp.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
