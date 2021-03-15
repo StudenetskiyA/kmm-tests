@@ -1,4 +1,9 @@
 package com.example.kmm_test.shared
 
-class RandomUUIDDataSource {
+import platform.Foundation.NSUUID
+
+actual class RandomUUIDDataSource {
+    actual fun getUUID(): String {
+        return NSUUID().UUIDString
+    }
 }

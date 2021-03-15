@@ -1,4 +1,5 @@
 package com.example.kmm_test.shared
 
-class RandomUUIDDataSource {
+expect class RandomUUIDDataSource() {
+    fun getUUID(): String
 }
