@@ -15,5 +15,7 @@
 /lookups.tab.keystream
 /lookups.tab.keystream.len
 /lookups.tab.len
+/lookups.tab.values
 /lookups.tab.values.at
+/lookups.tab.values.s
 /lookups.tab_i
