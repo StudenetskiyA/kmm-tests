@@ -43,6 +43,12 @@ struct ContentView: View {
                     label: {
                         Text("Set setting")
                     })
+            Button(action: {
+                EngineSDK().playerInteractor.playURL(url: "https://s3.amazonaws.com/kargopolov/kukushka.mp3")
+            },
+                    label: {
+                        Text("Play!")
+                    })
         }
     }
 }

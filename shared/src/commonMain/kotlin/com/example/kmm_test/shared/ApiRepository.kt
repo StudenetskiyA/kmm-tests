@@ -4,19 +4,11 @@ import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
+import kotlin.native.concurrent.ThreadLocal
 
 open class ApiRepository {
-    lateinit var httpClient: HttpClient
-
     suspend inline fun <reified T> getAnythingOrException(url: String): T {
-        initClient()
-        val result: T = httpClient.get(url)
-        httpClient.close()
-        return result
-    }
-
-    fun initClient() {
-        httpClient = HttpClient {
+        val httpClient = HttpClient {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
                     ignoreUnknownKeys = true
@@ -24,5 +16,8 @@ open class ApiRepository {
             }
             expectSuccess = true
         }
+        val result: T = httpClient.get(url)
+        httpClient.close()
+        return result
     }
 }

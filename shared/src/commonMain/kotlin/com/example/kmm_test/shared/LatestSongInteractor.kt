@@ -38,3 +38,14 @@ data class LatestSongResponse(
     val latest: List<LatestSong>,
 )
 
+@Serializable
+data class LatestSongDBEntity(
+    val id: String,
+    val artist: String,
+    val title: String,
+    val date: Long
+) {
+    fun toLatestSong(): LatestSong {
+        return LatestSong(this.artist, this.title)
+    }
+}

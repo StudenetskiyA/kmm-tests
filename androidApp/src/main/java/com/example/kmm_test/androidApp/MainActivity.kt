@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         EngineSDK.init(Configuration(PlatformType.Android("1.0",1), isDebug = true))
         EngineSDK.settingsDataSource.init(applicationContext)
         EngineSDK.playerDataSource.init(applicationContext)
+       // EngineSDK.databaseDriverFactory.init(applicationContext)
 
         val tv: TextView = findViewById(R.id.text_view)
 

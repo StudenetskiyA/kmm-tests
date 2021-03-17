@@ -4,11 +4,25 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
+    id("kotlin-android-extensions")
+    id("com.squareup.sqldelight")
+}
+
+repositories {
+    gradlePluginPortal()
+    google()
+    jcenter()
+    mavenCentral()
 }
 
 kotlin {
-    android()
-    ios {
+    val iOSTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+            ::iosArm64
+        else
+            ::iosX64
+
+    iOSTarget("ios") {
         binaries {
             framework {
                 baseName = "shared"
@@ -16,10 +30,12 @@ kotlin {
         }
     }
 
+    android()
+
     val ktorVersion = "1.5.0"
     val coroutinesVersion = "1.4.2-native-mt"
     val serializationVersion = "1.0.1"
-    val sqlDelightVersion = "1.4.4"
+    val sqlDelightVersion: String by project
 
     sourceSets {
         val commonMain by getting {
@@ -35,6 +51,7 @@ kotlin {
                 // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
                 implementation("com.squareup.sqldelight:coroutines-extensions:${sqlDelightVersion}")
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
 
                 // DI
                 implementation("org.kodein.di:kodein-di:7.1.0")
@@ -56,7 +73,7 @@ kotlin {
                 implementation("com.google.android.material:material:1.3.0")
                 api("io.ktor:ktor-client-okhttp:${ktorVersion}")
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}")
-                api("com.squareup.sqldelight:android-driver:${sqlDelightVersion}")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val androidTest by getting {
@@ -68,7 +85,7 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:${ktorVersion}")
-                implementation("com.squareup.sqldelight:native-driver:${sqlDelightVersion}")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
         val iosTest by getting
@@ -92,12 +109,16 @@ android {
     }
 }
 
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.example.kmm_test.shared.db"
+    }
+}
+
 val packForXcode by tasks.creating(Sync::class) {
     group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
-    val targetName = "ios" + if (sdkName.startsWith("iphoneos")) "Arm64" else "X64"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>(targetName).binaries.getFramework(mode)
+    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
     val targetDir = File(buildDir, "xcode-frameworks")

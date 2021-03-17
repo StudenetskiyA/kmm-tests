@@ -27,6 +27,7 @@ class MainViewModel() : ViewModel() {
 
     fun test3() {
         EngineSDK.logger.d("pageGenerator","started")
+        //EngineSDK.latestSongInteractor.getTest()
         viewModelScope.launch {
             _state.postValue("loading...")
             when (val result = EngineSDK.latestSongInteractor.getLatestSongsListOrException()) {
